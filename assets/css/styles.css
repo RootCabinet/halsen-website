@@ -1,0 +1,915 @@
+/* ==========================================================================
+   HALSEN CNC & EDGEBANDING - Custom Stylesheet
+   Aesthetic: Natural & Premium (Warm Wood, Espresso, Sage Green, Sand)
+   ========================================================================== */
+
+/* 1. CSS VARIABLES & SYSTEM THEME
+   ========================================================================== */
+:root {
+  /* Color Palette */
+  --color-wood: #8a1c2c;          /* Primary Accent: Halsen Burgundy */
+  --color-wood-dark: #6b121f;     /* Dark Burgundy: Hover state */
+  --color-wood-light: #f5e6e8;    /* Light Burgundy Highlight */
+  --color-espresso: #1a1a1a;      /* Text Dark: Clean Charcoal */
+  --color-charcoal: #333333;      /* Text Body: Soft Charcoal */
+  --color-bg-warm: #fafafa;       /* Page Background: Off-White */
+  --color-sand: #f4f4f4;          /* Section BG: Soft Light Gray */
+  --color-border: #e0e0e0;        /* UI Borders: Muted Gray */
+  --color-sage: #2e7d32;          /* Accent/Success: Eco Green */
+  --color-sage-light: #e8f5e9;    /* Light Green: Success background */
+  --color-white: #ffffff;
+  
+  /* Typography */
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-serif: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  
+  /* Spacing */
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 3rem;
+  --space-xl: 5rem;
+  
+  /* Layout */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --box-shadow: 0 4px 20px rgba(26, 26, 26, 0.05);
+  --box-shadow-hover: 0 12px 30px rgba(26, 26, 26, 0.1);
+}
+
+/* 2. BASE RESET & GENERAL STYLES
+   ========================================================================== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--color-charcoal);
+  background-color: var(--color-bg-warm);
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+a {
+  color: var(--color-wood);
+  text-decoration: none;
+  transition: var(--transition-smooth);
+}
+
+a:hover {
+  color: var(--color-wood-dark);
+}
+
+/* Layout Utilities */
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section {
+  padding: var(--space-xl) 0;
+}
+
+.section-bg-sand {
+  background-color: var(--color-sand);
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: var(--space-lg);
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.section-title {
+  font-family: var(--font-serif);
+  font-size: 2.5rem;
+  color: var(--color-espresso);
+  font-weight: 700;
+  margin-bottom: var(--space-sm);
+  position: relative;
+  display: inline-block;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.section-title::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 3px;
+  background-color: var(--color-wood);
+  margin: var(--space-sm) auto 0;
+  border-radius: var(--radius-sm);
+}
+
+.section-subtitle {
+  font-size: 1.1rem;
+  color: var(--color-charcoal);
+  font-weight: 400;
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.8rem 1.8rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  transition: var(--transition-smooth);
+  cursor: pointer;
+  border: none;
+}
+
+.btn-primary {
+  background-color: var(--color-wood);
+  color: var(--color-white);
+}
+
+.btn-primary:hover {
+  background-color: var(--color-wood-dark);
+  color: var(--color-white);
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  background-color: var(--color-espresso);
+  color: var(--color-white);
+}
+
+.btn-secondary:hover {
+  background-color: #170f09;
+  transform: translateY(-2px);
+}
+
+.btn-outline {
+  background-color: transparent;
+  color: var(--color-espresso);
+  border: 2px solid var(--color-espresso);
+}
+
+.btn-outline:hover {
+  background-color: var(--color-espresso);
+  color: var(--color-white);
+  transform: translateY(-2px);
+}
+
+/* 3. HEADER & NAVIGATION
+   ========================================================================== */
+.site-header {
+  background-color: rgba(253, 252, 251, 0.95);
+  backdrop-filter: blur(10px);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  border-bottom: 1px solid var(--color-border);
+  padding: var(--space-sm) 0;
+  transition: var(--transition-smooth);
+}
+
+.site-header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.site-logo {
+  display: flex;
+  flex-direction: column;
+}
+
+.logo-halsen {
+  font-family: var(--font-serif);
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--color-espresso);
+  letter-spacing: 1.5px;
+  line-height: 1.1;
+}
+
+.logo-sub {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--color-wood);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+/* Navigation Links */
+.main-nav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.nav-list {
+  display: flex;
+  gap: var(--space-md);
+}
+
+.nav-link {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--color-charcoal);
+  padding: var(--space-xs) 0;
+  position: relative;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--color-wood);
+  transition: var(--transition-smooth);
+}
+
+.nav-link:hover {
+  color: var(--color-espresso);
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+.nav-cta {
+  font-size: 0.85rem;
+  padding: 0.6rem 1.2rem;
+}
+
+/* Responsive Navigation Toggle */
+.nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+.hamburger {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background-color: var(--color-espresso);
+  position: relative;
+  transition: var(--transition-smooth);
+}
+
+.hamburger::before, .hamburger::after {
+  content: '';
+  position: absolute;
+  width: 24px;
+  height: 2px;
+  background-color: var(--color-espresso);
+  transition: var(--transition-smooth);
+}
+
+.hamburger::before { top: -8px; }
+.hamburger::after { top: 8px; }
+
+/* 4. HERO SECTION
+   ========================================================================== */
+.hero-section {
+  position: relative;
+  padding: var(--space-xl) 0;
+  background: radial-gradient(circle at 100% 100%, var(--color-sand) 0%, var(--color-bg-warm) 60%);
+  overflow: hidden;
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: var(--space-lg);
+  align-items: center;
+}
+
+.hero-content h1 {
+  font-family: var(--font-serif);
+  font-size: 3.2rem;
+  color: var(--color-espresso);
+  line-height: 1.15;
+  margin-bottom: var(--space-md);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+}
+
+.hero-content h1 span {
+  color: var(--color-wood);
+}
+
+.hero-description {
+  font-size: 1.15rem;
+  color: var(--color-charcoal);
+  margin-bottom: var(--space-lg);
+  max-width: 550px;
+}
+
+.hero-actions {
+  display: flex;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+}
+
+/* Decorative Hero Graphics representing CNC and Wood */
+.hero-visual {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cnc-illustration {
+  width: 100%;
+  max-width: 450px;
+  aspect-ratio: 1;
+  background-color: var(--color-sand);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--box-shadow);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: var(--space-md);
+}
+
+/* Stylized decorative wood and milling head pattern */
+.wood-grain-bg {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  opacity: 0.15;
+  background-image: repeating-radial-gradient(circle at 80% 20%, #a97142 0px, #a97142 4px, transparent 4px, transparent 12px);
+  z-index: 1;
+}
+
+.cnc-grid-overlay {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-image: linear-gradient(var(--color-border) 1px, transparent 1px),
+                    linear-gradient(90deg, var(--color-border) 1px, transparent 1px);
+  background-size: 40px 40px;
+  opacity: 0.4;
+  z-index: 2;
+}
+
+.cnc-path-line {
+  position: absolute;
+  width: 70%;
+  height: 50%;
+  border: 2px dashed var(--color-wood);
+  border-radius: var(--radius-md);
+  top: 25%;
+  left: 15%;
+  z-index: 3;
+}
+
+.cnc-drill-head {
+  position: absolute;
+  top: 21%;
+  left: 60%;
+  width: 24px;
+  height: 24px;
+  background: var(--color-espresso);
+  border-radius: 50%;
+  z-index: 4;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+
+.cnc-drill-head::after {
+  content: '';
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: var(--color-wood-light);
+  border-radius: 50%;
+  top: 8px; left: 8px;
+}
+
+.cnc-panel-info {
+  z-index: 5;
+  background: rgba(255, 255, 255, 0.9);
+  padding: var(--space-sm);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  font-family: monospace;
+  font-size: 0.8rem;
+  box-shadow: var(--box-shadow);
+  margin-top: auto;
+}
+
+/* 5. SERVICES SECTION
+   ========================================================================== */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: var(--space-md);
+}
+
+.service-card {
+  background-color: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-md);
+  box-shadow: var(--box-shadow);
+  transition: var(--transition-smooth);
+  display: flex;
+  flex-direction: column;
+}
+
+.service-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--box-shadow-hover);
+  border-color: var(--color-wood-light);
+}
+
+.service-icon-wrapper {
+  width: 60px;
+  height: 60px;
+  background-color: var(--color-sand);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--space-md);
+  color: var(--color-wood);
+}
+
+.service-icon {
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+.service-card h3 {
+  font-family: var(--font-serif);
+  font-size: 1.3rem;
+  color: var(--color-espresso);
+  margin-bottom: var(--space-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.service-card p {
+  font-size: 0.95rem;
+  color: var(--color-charcoal);
+  margin-bottom: var(--space-md);
+}
+
+.service-features {
+  margin-top: auto;
+  padding-top: var(--space-sm);
+  border-top: 1px solid var(--color-border);
+}
+
+.service-feature-item {
+  display: flex;
+  align-items: center;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-espresso);
+  margin-bottom: 0.5rem;
+}
+
+.service-feature-item::before {
+  content: '✓';
+  color: var(--color-sage);
+  margin-right: var(--space-xs);
+  font-weight: bold;
+}
+
+/* 6. ORDER PROCESS (HOW IT WORKS)
+   ========================================================================== */
+.process-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-md);
+  position: relative;
+}
+
+.process-step {
+  background-color: var(--color-white);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+  text-align: center;
+  position: relative;
+  box-shadow: var(--box-shadow);
+  border: 1px solid var(--color-border);
+}
+
+.process-number {
+  width: 40px;
+  height: 40px;
+  background-color: var(--color-wood);
+  color: var(--color-white);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  margin: 0 auto var(--space-sm);
+  box-shadow: 0 4px 10px rgba(169, 113, 66, 0.3);
+}
+
+.process-step h4 {
+  font-family: var(--font-serif);
+  font-size: 1.2rem;
+  color: var(--color-espresso);
+  margin-bottom: var(--space-xs);
+}
+
+.process-step p {
+  font-size: 0.85rem;
+  color: var(--color-charcoal);
+}
+
+/* 7. QUOTE & CUTLIST ESTIMATOR SECTION (PLACEHOLDER)
+   ========================================================================== */
+.quote-container {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: var(--space-lg);
+}
+
+.quote-calculator {
+  background-color: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-md);
+  box-shadow: var(--box-shadow);
+}
+
+.calculator-header {
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: var(--space-sm);
+  margin-bottom: var(--space-md);
+}
+
+.calculator-title {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  color: var(--color-espresso);
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.calculator-badge {
+  background-color: var(--color-wood-light);
+  color: var(--color-espresso);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.2rem 0.6rem;
+  border-radius: 20px;
+  text-transform: uppercase;
+}
+
+/* Dynamic Interactive Form Simulation */
+.form-section-title {
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--color-espresso);
+  margin-bottom: var(--space-sm);
+  font-weight: 700;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--space-sm);
+  margin-bottom: var(--space-md);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-espresso);
+  margin-bottom: 0.4rem;
+}
+
+.form-input, .form-select {
+  padding: 0.7rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  background-color: var(--color-bg-warm);
+  transition: var(--transition-smooth);
+}
+
+.form-input:focus, .form-select:focus {
+  outline: none;
+  border-color: var(--color-wood);
+  box-shadow: 0 0 0 3px rgba(169, 113, 66, 0.15);
+}
+
+/* Cutlist Table Placeholder Styles */
+.cutlist-container {
+  overflow-x: auto;
+  margin-bottom: var(--space-md);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.cutlist-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.9rem;
+}
+
+.cutlist-table th, .cutlist-table td {
+  padding: 0.8rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.cutlist-table th {
+  background-color: var(--color-sand);
+  color: var(--color-espresso);
+  font-weight: 700;
+}
+
+.cutlist-table tbody tr:nth-child(even) {
+  background-color: rgba(245, 237, 228, 0.2);
+}
+
+.table-input-number {
+  width: 70px;
+  padding: 0.4rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  text-align: center;
+}
+
+/* Edgebanding selection representation (l l w w) */
+.edgebanding-checkboxes {
+  display: flex;
+  gap: var(--space-xs);
+  justify-content: center;
+}
+
+.edge-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--color-charcoal);
+  cursor: pointer;
+}
+
+.edge-box input {
+  margin-bottom: 2px;
+}
+
+/* Sidebar summary results cards */
+.calculator-summary {
+  background-color: var(--color-sand);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-md);
+  box-shadow: var(--box-shadow);
+  align-self: start;
+}
+
+.summary-heading {
+  font-family: var(--font-serif);
+  font-size: 1.4rem;
+  color: var(--color-espresso);
+  margin-bottom: var(--space-sm);
+  border-bottom: 2px solid var(--color-border);
+  padding-bottom: var(--space-xs);
+}
+
+.summary-details {
+  margin-bottom: var(--space-md);
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  margin-bottom: var(--space-xs);
+}
+
+.summary-total {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--color-espresso);
+  border-top: 1px dashed var(--color-border);
+  padding-top: var(--space-xs);
+  margin-top: var(--space-xs);
+}
+
+.summary-notice {
+  background-color: var(--color-sage-light);
+  border: 1px solid var(--color-sage);
+  border-radius: var(--radius-md);
+  padding: var(--space-sm);
+  font-size: 0.8rem;
+  color: var(--color-sage);
+  margin-bottom: var(--space-md);
+}
+
+/* 8. FOOTER STYLING
+   ========================================================================== */
+.site-footer {
+  background-color: var(--color-espresso);
+  color: rgba(255, 255, 255, 0.8);
+  padding: var(--space-xl) 0 var(--space-md);
+  font-size: 0.95rem;
+}
+
+.footer-container {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr 1fr;
+  gap: var(--space-lg);
+  margin-bottom: var(--space-lg);
+}
+
+.footer-brand .footer-logo .logo-halsen {
+  color: var(--color-white);
+}
+
+.footer-description {
+  margin-top: var(--space-sm);
+  font-size: 0.85rem;
+  line-height: 1.7;
+}
+
+.footer-heading {
+  font-family: var(--font-serif);
+  color: var(--color-white);
+  font-size: 1.2rem;
+  margin-bottom: var(--space-md);
+  font-weight: 600;
+}
+
+.footer-menu li {
+  margin-bottom: var(--space-xs);
+}
+
+.footer-menu a {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.footer-menu a:hover {
+  color: var(--color-wood-light);
+  padding-left: 4px;
+}
+
+.footer-contact p {
+  margin-bottom: var(--space-xs);
+  font-size: 0.85rem;
+}
+
+.footer-contact a {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.footer-contact a:hover {
+  color: var(--color-wood-light);
+}
+
+.footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: var(--space-md);
+  text-align: center;
+  font-size: 0.8rem;
+}
+
+/* 9. RESPONSIVE MEDIA QUERIES (MOBILE SIZING)
+   ========================================================================== */
+@media (max-width: 992px) {
+  .hero-grid {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  
+  .hero-content h1 {
+    font-size: 2.8rem;
+  }
+  
+  .hero-description {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .hero-actions {
+    justify-content: center;
+  }
+  
+  .process-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .quote-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --space-xl: 3rem;
+  }
+  
+  /* Toggle navbar mobile layout */
+  .nav-toggle {
+    display: block;
+  }
+  
+  .main-nav {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: var(--color-bg-warm);
+    border-bottom: 1px solid var(--color-border);
+    flex-direction: column;
+    padding: var(--space-md);
+    gap: var(--space-sm);
+    box-shadow: var(--box-shadow);
+    display: none;
+  }
+  
+  .main-nav.is-open {
+    display: flex;
+  }
+  
+  .nav-list {
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-sm);
+  }
+  
+  .nav-cta {
+    width: 100%;
+    max-width: 250px;
+  }
+  
+  /* hamburger transformation on menu open */
+  .nav-toggle[aria-expanded="true"] .hamburger {
+    background-color: transparent;
+  }
+  
+  .nav-toggle[aria-expanded="true"] .hamburger::before {
+    transform: rotate(45deg);
+    top: 0;
+  }
+  
+  .nav-toggle[aria-expanded="true"] .hamburger::after {
+    transform: rotate(-45deg);
+    top: 0;
+  }
+  
+  .section-title {
+    font-size: 2rem;
+  }
+  
+  .process-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .footer-container {
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+  }
+}

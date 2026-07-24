@@ -1,0 +1,273 @@
+{{ define "main" }}
+
+<!-- 1. HERO SECTION -->
+<section class="hero-section">
+  <div class="container hero-grid">
+    <div class="hero-content">
+      <h1>¿Necesitas fabricar <span>sin montar taller</span>?</h1>
+      <p class="hero-description">
+        En HALSEN ofrecemos servicios profesionales de maquila en carpintería para diseñadores, arquitectos y fabricantes de cocinas y clósets. Desde el corte CNC con nesting optimizado hasta el enchapado premium de cantos, entregamos tus piezas listas para armar con precisión milimétrica.
+      </p>
+      <div class="hero-actions">
+        <a href="#quote" class="btn btn-primary">Estimador de Lista de Corte</a>
+        <a href="#services" class="btn btn-outline">Nuestros Servicios</a>
+      </div>
+    </div>
+    
+    <div class="hero-visual" style="position: relative; border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--box-shadow); aspect-ratio: 4/3;">
+      <video autoplay loop muted playsinline poster="/images/cnc.png" style="width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%) contrast(1.1); display: block;">
+        <source src="/images/hero-video.mp4" type="video/mp4">
+      </video>
+      <!-- Capa de color borgoña con mezcla (blend mode) para efecto duotono suave -->
+      <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: var(--color-wood); mix-blend-mode: multiply; opacity: 0.25; pointer-events: none;"></div>
+    </div>
+  </div>
+</section>
+
+<!-- 2. SERVICES BREAKDOWN SECTION -->
+<section id="services" class="section section-bg-sand">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">Nuestros Servicios</h2>
+      <p class="section-subtitle">Convertimos tableros crudos y melaminas en componentes listos para el ensamble de muebles residenciales y comerciales utilizando tecnología de punta.</p>
+    </div>
+    
+    <div class="services-grid">
+      <!-- Service 1: CNC Cutting -->
+      <div class="service-card">
+        <div class="service-icon-wrapper">
+          <span class="service-icon">⌖</span>
+        </div>
+        <h3>Corte CNC de Precisión</h3>
+        <p>Servicio de ruteado vertical y nesting optimizado para aprovechar al máximo cada hoja de material. Diseñado para MDF, triplay y melaminas (MFC), reduciendo al mínimo el desperdicio.</p>
+        <div class="service-features">
+          <div class="service-feature-item">Precisión sub-milimétrica</div>
+          <div class="service-feature-item">Nesting optimizado (mínimo desperdicio)</div>
+          <div class="service-feature-item">Cortes curvos y formas complejas</div>
+        </div>
+      </div>
+      
+      <!-- Service 2: Edgebanding -->
+      <div class="service-card">
+        <div class="service-icon-wrapper">
+          <span class="service-icon">▤</span>
+        </div>
+        <h3>Enchapado de Cantos Premium</h3>
+        <p>Acabados impecables con adhesivo PUR resistente a la humedad y juntas invisibles. Aplicamos cubrecantos en paneles rectos usando cantos de PVC, ABS o chapa de madera natural.</p>
+        <div class="service-features">
+          <div class="service-feature-item">Cintas de 0.4mm hasta 2.0mm de espesor</div>
+          <div class="service-feature-item">Adhesivo PUR de alta resistencia</div>
+          <div class="service-feature-item">Perfilado y acabado profesional sin juntas</div>
+        </div>
+      </div>
+      
+      <!-- Service 3: Special Projects -->
+      <div class="service-card" style="border: 2px solid var(--color-wood); position: relative;">
+        <div style="position: absolute; top: -12px; right: 20px; background-color: var(--color-wood); color: white; font-size: 0.75rem; padding: 2px 10px; border-radius: 12px; font-weight: bold;">Soluciones Integrales</div>
+        <div class="service-icon-wrapper" style="background-color: var(--color-wood-light);">
+          <span class="service-icon" style="color: var(--color-wood);">⭐</span>
+        </div>
+        <h3>Proyectos a Medida</h3>
+        <p>¿Tienes un proyecto especial o fuera del estándar? Realizamos cortes especiales, desarrollo de prototipos (ej. carritos ensamblables, stands) y soluciones personalizadas para agencias o eventos.</p>
+        <div style="margin-top: var(--space-sm);">
+          <a href="https://wa.me/522229211335?text=Hola%20Halsen,%20me%20gustar%C3%ADa%20cotizar%20un%20proyecto%20especial%20o%20soluci%C3%B3n%20a%20medida:" target="_blank" class="btn btn-primary" style="width: 100%; padding: 0.6rem; font-size: 0.85rem; display: inline-block; text-align: center;">Cuéntanos tu idea</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3. ORDER PROCESS (HOW IT WORKS) -->
+<section id="how-it-works" class="section">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">Cómo Funciona</h2>
+      <p class="section-subtitle">De tu idea o requerimiento a tus piezas listas para ensamblar en cuatro sencillos pasos.</p>
+    </div>
+    
+    <div class="process-grid">
+      <!-- Step 1 -->
+      <div class="process-step">
+        <div class="process-number">1</div>
+        <h4>Prepara tu Lista</h4>
+        <p>Ingresa las dimensiones de tus piezas, cantidades y preferencias de enchapado en nuestro editor, o descarga la plantilla CSV.</p>
+      </div>
+      
+      <!-- Step 2 -->
+      <div class="process-step">
+        <div class="process-number">2</div>
+        <h4>Obtén tu Estimación</h4>
+        <p>Nuestra calculadora genera de inmediato métricas tentativas de rendimiento (metros lineales de corte, cantos y tableros requeridos).</p>
+      </div>
+      
+      <!-- Step 3 -->
+      <div class="process-step">
+        <div class="process-number">3</div>
+        <h4>Corte y Enchapado</h4>
+        <p>Tu lista se envía para optimización. Cortamos y enchapamos tus tableros en maquinaria industrial con calidad constante y controlada.</p>
+      </div>
+      
+      <!-- Step 4 -->
+      <div class="process-step">
+        <div class="process-number">4</div>
+        <h4>Recoge en Taller</h4>
+        <p>Te notificamos para que pases por tu pedido directamente a nuestro taller en Chipilo. <strong style="color: var(--color-wood); display: block; margin-top: 8px;">Nuestra Promesa: ¡Listo en 48 horas hábiles!*</strong></p>
+      </div>
+    </div>
+    
+    <p style="font-size: 0.8rem; color: var(--color-charcoal); margin-top: var(--space-md); text-align: center;">
+      * El tiempo de entrega puede variar en fines de semana, días festivos o pedidos de alto volumen.
+    </p>
+  </div>
+</section>
+
+<!-- 4. ADVANCED CUTLIST & QUOTE ESTIMATION FORM -->
+<section id="quote" class="section section-bg-sand">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">Estimador de Lista de Corte</h2>
+      <p class="section-subtitle">Ingresa tus dimensiones para simular el rendimiento de tableros, calcular metros lineales de canto y solicitar una cotización formal.</p>
+    </div>
+    
+    <div class="quote-container">
+      <!-- Interactive Calculator Panel -->
+      <div class="quote-calculator">
+        <div class="calculator-header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--space-sm);">
+          <h3 class="calculator-title" style="margin-bottom: 0;">
+            Editor de Lista de Corte
+            <span class="calculator-badge">Simulador Interactivo</span>
+          </h3>
+          <div style="text-align: right; margin-top: var(--space-xs);">
+            <a href="/templates/Halsen_Template_Cutlist.csv" class="btn btn-outline" download style="padding: 0.4rem 0.8rem; font-size: 0.75rem; border-color: var(--color-wood); color: var(--color-wood);">
+              <svg style="width: 14px; height: 14px; vertical-align: middle; margin-right: 4px;" viewBox="0 0 24 24">
+                <path fill="currentColor" d="M5,20H19V18H5M19,9H15V3H9V9H5L12,16L19,9Z"/>
+              </svg> 
+              Descargar Plantilla CSV
+            </a>
+            <div style="font-size: 0.7rem; color: var(--color-charcoal); margin-top: 6px; max-width: 200px; line-height: 1.2;">
+              Descarga la plantilla, llénala en Excel o Sheets y envíanosla por WhatsApp.
+            </div>
+          </div>
+        </div>
+        
+        <form id="cutlist-form" onsubmit="event.preventDefault();">
+          <!-- Global Materials Config -->
+          <div class="form-section-title">1. Configuración del Tablero</div>
+          <div class="form-row">
+            <div class="form-group" style="display: flex; align-items: center; gap: var(--space-xs);">
+              <input type="checkbox" id="has-grain" name="has-grain" style="width: 18px; height: 18px;">
+              <label class="form-label" for="has-grain" style="margin-bottom: 0;">Material con veta</label>
+            </div>
+            <div class="form-group">
+              <small style="color: var(--color-charcoal); font-style: italic;">Nota: Para material con veta, el 'Largo' de la pieza indica la dirección de la veta.</small>
+            </div>
+          </div>
+          
+          <!-- Detailed Cutlist Table with L1, L2, A1, A2 edge markers -->
+          <div class="form-section-title">2. Dimensiones de Piezas y Enchapado (L1, L2, A1, A2)</div>
+          <div class="cutlist-container">
+            <table class="cutlist-table">
+              <thead>
+                <tr>
+                  <th style="width: 60px;">Item</th>
+                  <th>Nombre de Pieza</th>
+                  <th style="width: 110px;">Largo (mm)</th>
+                  <th style="width: 110px;">Ancho (mm)</th>
+                  <th style="width: 80px;">Cantidad</th>
+                  <th style="text-align: center; width: 160px;">Bordes a Enchapar</th>
+                  <th style="width: 40px;"></th>
+                </tr>
+              </thead>
+              <tbody id="table-body">
+                <!-- Row 1 -->
+                <tr class="item-row">
+                  <td class="item-index">#1</td>
+                  <td><input type="text" class="form-input piece_name" value="Lateral Izquierdo Gabinete" style="padding: 0.4rem; width: 100%;"></td>
+                  <td><input type="number" class="table-input-number length_mm" value="720" min="10" max="2400"></td>
+                  <td><input type="number" class="table-input-number width_mm" value="560" min="10" max="1200"></td>
+                  <td><input type="number" class="table-input-number quantity" value="2" min="1"></td>
+                  <td>
+                    <div class="edgebanding-checkboxes">
+                      <label class="edge-box" title="Largo 1">
+                        <input type="checkbox" class="edge_l1" checked>
+                        <span>L1</span>
+                      </label>
+                      <label class="edge-box" title="Largo 2">
+                        <input type="checkbox" class="edge_l2">
+                        <span>L2</span>
+                      </label>
+                      <label class="edge-box" title="Ancho 1">
+                        <input type="checkbox" class="edge_a1" checked>
+                        <span>A1</span>
+                      </label>
+                      <label class="edge-box" title="Ancho 2">
+                        <input type="checkbox" class="edge_a2">
+                        <span>A2</span>
+                      </label>
+                    </div>
+                  </td>
+                  <td><button type="button" class="btn-remove-row" onclick="removeRow(this)" style="color:#d9534f; border:none; background:none; cursor:pointer; font-weight:bold; font-size:1.1rem; padding: 0 4px;">❌</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          
+          <div style="display: flex; gap: var(--space-xs); margin-bottom: var(--space-md); flex-wrap: wrap; align-items: center;">
+            <button type="button" class="btn btn-outline" id="btn-add-row" onclick="addRow()" style="padding: 0.5rem 1rem; font-size: 0.8rem;">+ Agregar Fila</button>
+            <button type="button" class="btn btn-outline" id="btn-clear-list" onclick="clearCutlist()" style="padding: 0.5rem 1rem; font-size: 0.8rem; border-color: #d9534f; color: #d9534f;">Limpiar Lista</button>
+            <span style="font-size: 0.75rem; color: var(--color-charcoal); margin-left: 8px;"><em>💡 Tip: Presiona la tecla <strong>Tab</strong> en el último campo para agregar una fila automáticamente.</em></span>
+          </div>
+          
+          <div class="form-section-title">3. Acciones de Simulación</div>
+          <div style="display: flex; gap: var(--space-sm); flex-wrap: wrap;">
+            <button type="button" class="btn btn-primary" onclick="executeWorkshopCalculations(); alert('¡Cálculo manual ejecutado con éxito! Las métricas actualizadas ya se muestran en el panel lateral.')">Calcular Estimación</button>
+            <a id="csv-download-btn" class="btn btn-secondary" href="#" download style="text-decoration: none; display: inline-flex; align-items: center; justify-content: center;">Exportar CSV de Producción</a>
+          </div>
+        </form>
+      </div>
+      
+      <!-- Right Sidebar: Live Metrics Summary -->
+      <div class="calculator-summary">
+        <h3 class="summary-heading">Métricas del Proyecto</h3>
+        
+        <div class="summary-details">
+          <div class="summary-row">
+            <span>Total de Piezas:</span>
+            <strong id="res-total-pieces">7 piezas</strong>
+          </div>
+          <div class="summary-row">
+            <span>Largo de Corte Est.:</span>
+            <strong id="res-cut-length">9.42 m</strong>
+          </div>
+          <div class="summary-row">
+            <span>Cubrecanto Estimado:</span>
+            <strong id="res-edge-meters">5.13 m</strong>
+          </div>
+          <div class="summary-total">
+            <span>Subtotal de Servicio:</span>
+            <span id="res-subtotal">$3,450.00 MXN*</span>
+          </div>
+        </div>
+        
+        <div class="summary-notice" style="margin-top: var(--space-sm); padding: 1rem; background-color: var(--color-white); border-left: 4px solid var(--color-wood); border-radius: var(--radius-sm);">
+          <strong>Aviso Importante:</strong>
+          <ul style="margin-left: 1.2rem; margin-top: 0.5rem; font-size: 0.85rem; color: var(--color-charcoal);">
+            <li>Este costo incluye exclusivamente el servicio de maquila (corte crudo, setup y calibración).</li>
+            <li><strong>NO INCLUYE material</strong> (ni tableros ni cinta cubrecanto).</li>
+            <li>La eficiencia del tablero y la cantidad de hojas requeridas se informará una vez realizado el anidado (Nesting) final en Fusion360.</li>
+          </ul>
+        </div>
+        
+        <div style="text-align: center; margin-top: var(--space-md);">
+          <button type="button" class="btn btn-primary" style="width: 100%;" onclick="sendQuoteRequest()">Solicitar Cotización Formal</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REAL ESTIMATION FORM JAVASCRIPT LOGIC (Minified for protection) -->
+{{ $calcJs := resources.Get "js/calculator.js" | minify | fingerprint }}
+<script src="{{ $calcJs.RelPermalink }}"></script>
+
+{{ end }}

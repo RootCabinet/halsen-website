@@ -1,0 +1,38 @@
+<header class="site-header">
+  <div class="container site-header-container">
+    <a href="/" class="site-logo">
+      <img src="/images/logo.svg" alt="HALSEN" style="height: 60px; width: auto; max-height: 60px; display: block;">
+    </a>
+    
+    <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" id="js-nav-toggle">
+      <span class="hamburger"></span>
+    </button>
+    
+    <nav class="main-nav" id="js-main-nav" aria-label="Main Navigation">
+      <ul class="nav-list">
+        {{ range .Site.Menus.main }}
+        <li class="nav-item">
+          <a class="nav-link" href="{{ .URL | relURL }}">{{ .Name }}</a>
+        </li>
+        {{ end }}
+      </ul>
+      <a href="#quote" class="btn btn-primary nav-cta">Cotización Rápida</a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  // Simple responsive menu toggle
+  document.addEventListener('DOMContentLoaded', () => {
+    const navToggle = document.getElementById('js-nav-toggle');
+    const mainNav = document.getElementById('js-main-nav');
+    
+    if (navToggle && mainNav) {
+      navToggle.addEventListener('click', () => {
+        const expanded = navToggle.getAttribute('aria-expanded') === 'true';
+        navToggle.setAttribute('aria-expanded', !expanded);
+        mainNav.classList.toggle('is-open');
+      });
+    }
+  });
+</script>

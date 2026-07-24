@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>STUDIO HALSEN - Panel Operativo Integrado</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 30px; background-color: #121214; color: #e2e8f0; }
+        .container { max-width: 1200px; background: #1a1a1e; padding: 30px; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.5); margin: auto; }
+        h2, h3, h4 { color: #00adb5; border-bottom: 1px solid #2d2d34; padding-bottom: 10px; margin-top: 25px; }
+        .global-settings { background: #22222b; padding: 20px; border-radius: 6px; margin-bottom: 25px; display: flex; gap: 30px; flex-wrap: wrap; align-items: center; border-left: 4px solid #00adb5; }
+        .form-group-inline { display: flex; align-items: center; gap: 10px; }
+        .form-group-inline label { font-weight: bold; color: #cbd5e1; }
+        input[type="number"], select, input[type="text"] { background: #2d2d34; border: 1px solid #475569; border-radius: 4px; color: #fff; padding: 8px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; background: #22222b; }
+        th, td { border: 1px solid #3f3f46; padding: 12px; text-align: center; }
+        th { background-color: #2d2d34; color: #00adb5; font-size: 14px; }
+        .btn { background-color: #00adb5; color: #121214; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; transition: 0.2s; }
+        .btn:hover { background-color: #008f95; }
+        .btn-add { background-color: #3b82f6; color: white; margin-top: 15px; }
+        .btn-submit { background-color: #10b981; color: white; width: 100%; padding: 15px; font-size: 16px; margin-top: 25px; }
+        .btn-submit:hover { background-color: #059669; }
+        .btn-download { background-color: #f59e0b; color: white; text-decoration: none; border-radius: 4px; font-size: 14px; padding: 8px 15px; display: inline-block; font-weight: bold; }
+        .btn-erp { background-color: #8b5cf6; color: white; padding: 12px 25px; font-size: 15px; margin-top: 15px; width: 100%; }
+        .btn-erp:hover { background-color: #7c3aed; }
+        
+        .grid-outputs { display: flex; gap: 20px; margin-top: 20px; }
+        .output-box { background: #22222b; padding: 20px; border-radius: 6px; flex: 1; border: 1px solid #2d2d34; }
+        .output-panel { display: none; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>🛠️ Sistema de Estimación CNC e Inyección Automática Dolibarr</h2>
+    
+    <div class="global-settings">
+        <div class="form-group-inline">
+            <label for="global_socid">Asignar a Cliente (Dolibarr ID):</label>
+            <input type="number" id="global_socid" value="12" style="width: 60px; text-align: center; font-weight: bold; color: #00adb5;">
+        </div>
+        <div class="form-group-inline">
+            <label for="global_grain">¿Tiene Veta/Hilo el material?:</label>
+            <input type="checkbox" id="global_grain" style="transform: scale(1.3); cursor: pointer;">
+        </div>
+        <div class="form-group-inline">
+            <label for="global_thickness">Espesor Único (mm):</label>
+            <input type="number" id="global_thickness" value="18" style="width: 60px; text-align: center;">
+        </div>
+    </div>
+
+    <h3>📋 Matriz de Lista de Corte</h3>
+    <table id="cutting-table">
+        <thead>
+            <tr>
+                <th>Largo (mm)</th>
+                <th>Ancho (mm)</th>
+                <th>Cantidad</th>
+                <th>Canto Largos</th>
+                <th>Canto Cortos</th>
+                <th>Remover</th>
+            </tr>
+        </thead>
+        <tbody id="table-body">
+            <tr class="item-row">
+                <td><input type="number" class="length_mm" min="10" max="2400" value="600" style="width:90px;"></td>
+                <td><input type="number" class="width_mm" min="10" max="1200" value="400" style="width:90px;"></td>
+                <td><input type="number" class="quantity" min="1" value="4" style="width:70px;"></td>
+                <td>
+                    L1 <input type="checkbox" class="edge_l1" checked> 
+                    L2 <input type="checkbox" class="edge_l2" checked>
+                </td>
+                <td>
+                    C1 <input type="checkbox" class="edge_c1"> 
+                    C2 <input type="checkbox" class="edge_c2">
+                </td>
+                <td><button type="button" onclick="removeRow(this)" style="color:#ef4444; border:none; background:none; cursor:pointer; font-weight:bold; font-size:16px;">❌</button></td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <button type="button" class="btn btn-add" onclick="addRow()">➕ Añadir Fila de Pieza</button>
+    <button type="button" class="btn btn-submit" onclick="executeWorkshopCalculations()">⚙️ Procesar Orden de Trabajo</button>
+
+    <div class="output-panel" id="result-section">
+        
+        <div class="grid-outputs">
+            <div class="output-box" style="border-top: 4px solid #00adb5;">
+                <h4>Métricas Técnicas Consolidadas</h4>
+                <p>Tableros Estimados: <strong id="res-sheets" style="color:#00adb5; font-size:18px;">0 pzas</strong></p>
+                <p>Tiempo de Corte Puro: <strong id="res-net-time">0</strong> mins</p>
+                <p>Overhead Z/Aire (30% G00): <strong id="res-g00-time">0</strong> mins</p>
+                <p>Tiempo Total de Máquina: <strong id="res-total-time">0</strong> mins</p>
+                <p>Metraje de Canto Requerido: <strong id="res-edge-meters">0</strong> ml</p>
+            </div>
+            
+            <div class="output-box" style="border-top: 4px solid #f59e0b;">
+                <h4>Automatización e Integraciones Exteriores</h4>
+                <p>1. Descarga la configuración de piezas para tu script de Python en Fusion 360:</p>
+                <a id="csv-download-btn" class="btn btn-download" href="#" download>💾 Descargar Lista de Corte (.CSV)</a>
+                
+                <p style="margin-top: 15px;">2. Empuja el presupuesto de maquinado y canteado directo a tu servidor:</p>
+                <button type="button" class="btn btn-erp" onclick="injectDirectToDolibarr()">⚡ Crear Presupuesto en Dolibarr</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Variables globales para almacenar los datos calculados temporalmente
+    let calculatedPayloadForDolibarr = null;
+
+    function addRow() {
+        const tbody = document.getElementById('table-body');
+        const newRow = tbody.rows[0].cloneNode(true);
+        newRow.querySelector('.quantity').value = 1;
+        tbody.appendChild(newRow);
+    }
+
+    function removeRow(button) {
+        const tbody = document.getElementById('table-body');
+        if (tbody.rows.length > 1) { button.closest('tr').remove(); }
+    }
+
+    function executeWorkshopCalculations() {
+        const rows = document.querySelectorAll('.item-row');
+        
+        const FEED_RATE = 6000;
+        const EFFICIENCY = 0.75;
+        const EFFECTIVE_FEED_RATE = FEED_RATE * EFFICIENCY; // 4500 mm/min
+        const G00_OVERHEAD_MULTIPLIER = 0.30; 
+        
+        const CNC_MINUTE_RATE = 10.00;
+        const EDGEBANDING_METER_RATE = 11.50;
+        const CAM_FEE_PER_BLOCK = 75.00;
+        const NESTING_GAP = 8;
+        const SHEET_DEAD_ZONE = 10;
+        const USABLE_SHEET_AREA = 1200 * 2420; 
+        
+        const INITIAL_SETUP_TIME = 10.0;
+        const SHEET_CHANGE_INTERVAL = 4.0;
+
+        const socid = document.getElementById('global_socid').value;
+        const hasGrain = document.getElementById('global_grain').checked;
+        const thickness = document.getElementById('global_thickness').value;
+        const wasteMultiplier = hasGrain ? 0.25 : 0.10;
+
+        let totalCutLengthAllItems = 0;
+        let totalBandedLengthAllItems = 0;
+        let totalNetAreaRequired = 0;
+        let hasAnyBanding = false;
+
+        let csvRows = [["Largo", "Ancho", "Cantidad", "Espesor", "Canto_L1", "Canto_L2", "Canto_C1", "Canto_C2"]];
+
+        for (let i = 0; i < rows.length; i++) {
+            let row = rows[i];
+            let length = parseInt(row.querySelector('.length_mm').value);
+            let width = parseInt(row.querySelector('.width_mm').value);
+            let qty = parseInt(row.querySelector('.quantity').value);
+
+            if (length > 2400 || width > 1200) {
+                alert(`Error: Fila ${i+1} excede las dimensiones máximas (2400x1200).`);
+                return;
+            }
+
+            let l1 = row.querySelector('.edge_l1').checked;
+            let l2 = row.querySelector('.edge_l2').checked;
+            let c1 = row.querySelector('.edge_c1').checked;
+            let c2 = row.querySelector('.edge_c2').checked;
+
+            let piecePerimeter = 2 * (length + width);
+            totalCutLengthAllItems += (piecePerimeter * qty);
+
+            let bufferedArea = (length + NESTING_GAP) * (width + NESTING_GAP);
+            totalNetAreaRequired += (bufferedArea * qty);
+
+            let pieceBandedLength = 0;
+            if (l1) { pieceBandedLength += (length + 50.8); hasAnyBanding = true; }
+            if (l2) { pieceBandedLength += (length + 50.8); hasAnyBanding = true; }
+            if (c1) { pieceBandedLength += (width + 50.8); hasAnyBanding = true; }
+            if (c2) { pieceBandedLength += (width + 50.8); hasAnyBanding = true; }
+            totalBandedLengthAllItems += (pieceBandedLength * qty);
+
+            csvRows.push([length, width, qty, thickness, l1?1:0, l2?1:0, c1?1:0, c2?1:0]);
+        }
+
+        let factoredArea = totalNetAreaRequired * (1 + wasteMultiplier);
+        let totalProjectSheets = Math.ceil(factoredArea / USABLE_SHEET_AREA);
+        if (totalProjectSheets === 0 && totalNetAreaRequired > 0) totalProjectSheets = 1;
+
+        let netCuttingTimeMinutes = totalCutLengthAllItems / EFFECTIVE_FEED_RATE;
+        let g00OverheadMinutes = netCuttingTimeMinutes * G00_OVERHEAD_MULTIPLIER;
+        let sheetChangeOverhead = totalProjectSheets > 1 ? (totalProjectSheets - 1) * SHEET_CHANGE_INTERVAL : 0;
+        
+        let totalMachineRuntimeMinutes = INITIAL_SETUP_TIME + netCuttingTimeMinutes + g00OverheadMinutes + sheetChangeOverhead;
+        let cncExecutionCost = totalMachineRuntimeMinutes * CNC_MINUTE_RATE;
+
+        let camProgrammingBlocks = Math.ceil(totalProjectSheets / 3);
+        let totalCamFee = camProgrammingBlocks * CAM_FEE_PER_BLOCK;
+        
+        let totalCncServiceCost = cncExecutionCost + totalCamFee;
+        let totalProjectEdgebandingMeters = hasAnyBanding ? (totalBandedLengthAllItems + 3000) / 1000 : 0;
+        let edgebandingCost = totalProjectEdgebandingMeters * EDGEBANDING_METER_RATE;
+
+        // Despliegue en Interfaz
+        document.getElementById('res-sheets').innerText = `${totalProjectSheets} pza(s)`;
+        document.getElementById('res-net-time').innerText = netCuttingTimeMinutes.toFixed(2);
+        document.getElementById('res-g00-time').innerText = g00OverheadMinutes.toFixed(2);
+        document.getElementById('res-total-time').innerText = totalMachineRuntimeMinutes.toFixed(2);
+        document.getElementById('res-edge-meters').innerText = totalProjectEdgebandingMeters.toFixed(2);
+
+        // Armar el Objeto estructurado para enviar a Dolibarr
+        let doliCncDesc = `Servicio habilitado y corte router CNC para panel de ${thickness}mm (${hasGrain ? 'Con Veta' : 'Color Liso'}). Incluye: ${totalProjectSheets} tablero(s), setup inicial, ${camProgrammingBlocks} bloques CAM y ${totalMachineRuntimeMinutes.toFixed(1)} min de ejecución (Corte + G00).`;
+        let doliEdgeDesc = `Servicio de aplicación y refinado mecánico de canto neumático continuo para panel de ${thickness}mm. Incluye: Calibración de estación + ${totalProjectEdgebandingMeters.toFixed(2)} metros lineales aplicados.`;
+
+        calculatedPayloadForDolibarr = {
+            "socid": socid,
+            "date": Math.floor(Date.now() / 1000), // Timestamp actual dinámico
+            "cond_reglement_id": "8", 
+            "mode_reglement_id": "2",
+            "shipping_method_id": "2",
+            "multicurrency_code": "MXN",
+            "note_private": "Cotización automatizada generada desde la terminal local del taller.",
+            "lines": [
+                {
+                    "product_type": "0",
+                    "qty": "1",
+                    "tva_tx": "16.0000",
+                    "subprice": totalCncServiceCost.toFixed(2),
+                    "desc": doliCncDesc
+                }
+            ]
+        };
+
+        // Si el cliente requiere enchapado, se inyecta la segunda línea
+        if (totalProjectEdgebandingMeters > 0) {
+            calculatedPayloadForDolibarr.lines.push({
+                "product_type": "0",
+                "qty": "1",
+                "tva_tx": "16.0000",
+                "subprice": edgebandingCost.toFixed(2),
+                "desc": doliEdgeDesc
+            });
+        }
+
+        // Configurar Botón CSV
+        let csvContent = "data:text/csv;charset=utf-8," + csvRows.map(e => e.join(",")).join("\n");
+        let downloadBtn = document.getElementById('csv-download-btn');
+        downloadBtn.setAttribute("href", encodeURI(csvContent));
+        downloadBtn.setAttribute("download", `lista_corte_${thickness}mm.csv`);
+
+        document.getElementById('result-section').style.display = 'block';
+    }
+
+    async function injectDirectToDolibarr() {
+        if (!calculatedPayloadForDolibarr) return;
+
+        const API_URL = "http://100.124.128.95:3030/api/index.php/proposals?api_key=dY9Mdxpb4As3X10Mm6HZcPU1693gbVLf";
+
+        try {
+            const response = await fetch(API_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(calculatedPayloadForDolibarr)
+            });
+
+            if (response.ok) {
+                const newProposalId = await response.json();
+                alert(`¡Presupuesto inyectado con éxito! Creado bajo el ID #${newProposalId} en Dolibarr.`);
+            } else {
+                const errLog = await response.text();
+                alert(`Error de validación en Dolibarr: ${errLog}`);
+            }
+        } catch (error) {
+            console.error(error);
+            alert("No se pudo conectar con el servidor de la API de Dolibarr.");
+        }
+    }
+</script>
+
+</body>
+</html>

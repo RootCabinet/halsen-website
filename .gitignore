@@ -1,0 +1,16 @@
+# Generated files by Hugo
+public/
+resources/
+.hugo_build.lock
+
+# macOS
+.DS_Store
+
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
