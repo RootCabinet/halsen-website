@@ -207,6 +207,8 @@
     document.getElementById('res-total-pieces').innerText = `${totalPiecesCount} pza(s)`;
     document.getElementById('res-cut-length').innerText = `${(totalCutLengthAllItems / 1000).toFixed(2)} m`;
     document.getElementById('res-edge-meters').innerText = `${totalProjectEdgebandingMeters.toFixed(2)} m`;
+    let sheetEl = document.getElementById('res-sheets');
+    if(sheetEl) sheetEl.innerText = `${totalProjectSheets} Hojas`;
     
     // Format currency to MXN
     const formatter = new Intl.NumberFormat('es-MX', {

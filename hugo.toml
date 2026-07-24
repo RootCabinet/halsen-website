@@ -5,6 +5,8 @@ disableKinds = ["taxonomy", "term"]
 
 [params]
   description = 'Servicios profesionales de maquila en carpintería: Corte CNC con nesting optimizado, enchapado de cantos premium y piezas listas para armar en Puebla, Cholula y Tlaxcalancingo.'
+  author = 'HALSEN Soluciones Industriales'
+  keywords = 'corte CNC, maquila, carpintería, enchapado de cantos, nesting, MDF, triplay, melamina, Puebla, Cholula, Tlaxcalancingo'
   contact_email = 'contacto@halsen.mx'
   contact_phone = '222 921 1335'
   address = 'Puebla | Cholula | Tlaxcalancingo, México'
