@@ -3,6 +3,10 @@ languageCode = 'es-mx'
 title = 'HALSEN | Soluciones Industriales y Arquitectónicas'
 disableKinds = ["taxonomy", "term"]
 
+[services]
+  [services.googleAnalytics]
+    id = 'G-CT27V615J5'
+
 [params]
   description = 'Servicios profesionales de maquila en carpintería: Corte CNC con nesting optimizado, enchapado de cantos premium y piezas listas para armar en Puebla, Cholula y Tlaxcalancingo.'
   author = 'HALSEN Soluciones Industriales'

@@ -8,6 +8,9 @@
   {{ with .Site.Params.author }}<meta name="author" content="{{ . }}">{{ end }}
   {{ with .Site.Params.keywords }}<meta name="keywords" content="{{ . }}">{{ end }}
   
+  {{/* Google Analytics 4 */}}
+  {{ template "_internal/google_analytics.html" . }}
+  
   {{/* Hugo Asset Pipeline for Custom Vanilla CSS */}}
   {{ $styles := resources.Get "css/styles.css" | minify | fingerprint }}
   <link rel="stylesheet" href="{{ $styles.RelPermalink }}" integrity="{{ $styles.Data.Integrity }}">
