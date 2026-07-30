@@ -45,11 +45,11 @@
     bindRowListeners(tr);
     executeWorkshopCalculations();
     
-    // Focus the first numerical input (length)
-    const lenInput = tr.querySelector('.length_mm');
-    if (lenInput) {
-      lenInput.focus();
-      lenInput.select();
+    // Focus the part name input (nombre de pieza)
+    const nameInput = tr.querySelector('.piece_name');
+    if (nameInput) {
+      nameInput.focus();
+      nameInput.select();
     }
   }
 
