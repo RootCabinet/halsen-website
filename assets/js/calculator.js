@@ -1,3 +1,12 @@
+  function trackEstimatorEvent(eventName, params = {}) {
+    if (typeof window.gtag === 'function') {
+      window.gtag('event', eventName, {
+        event_category: 'Cutlist Estimator',
+        ...params
+      });
+    }
+  }
+
   function bindRowListeners(row) {
     const inputs = row.querySelectorAll('input');
     inputs.forEach(input => {
@@ -51,6 +60,10 @@
       nameInput.focus();
       nameInput.select();
     }
+
+    trackEstimatorEvent('estimator_add_row', {
+      row_count: newIdx
+    });
   }
 
   function removeRow(button) {
@@ -237,6 +250,11 @@
     let encodedText = encodeURIComponent(text);
     let whatsappUrl = `https://wa.me/522229211335?text=${encodedText}`;
     
+    trackEstimatorEvent('estimator_request_quote', {
+      total_pieces: pieces,
+      estimated_subtotal: subtotal
+    });
+    
     window.open(whatsappUrl, '_blank');
   }
 
@@ -273,6 +291,19 @@
             addRow();
           }
         }
+      });
+    }
+
+    // Bind click event to CSV download button to track the export action
+    const downloadBtn = document.getElementById('csv-download-btn');
+    if (downloadBtn) {
+      downloadBtn.addEventListener('click', () => {
+        let pieces = document.getElementById('res-total-pieces').innerText;
+        let subtotal = document.getElementById('res-subtotal').innerText;
+        trackEstimatorEvent('estimator_export_csv', {
+          total_pieces: pieces,
+          estimated_subtotal: subtotal
+        });
       });
     }
 
