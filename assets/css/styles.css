@@ -647,6 +647,16 @@ a:hover {
   border-radius: var(--radius-md);
 }
 
+.table-responsive-wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-top: 0.5rem;
+}
+
+.mobile-only-csv-download {
+  display: none;
+}
+
 .cutlist-table {
   width: 100%;
   border-collapse: collapse;
@@ -911,5 +921,86 @@ a:hover {
   .footer-container {
     grid-template-columns: 1fr;
     gap: var(--space-md);
+  }
+
+  /* --- Cutlist Estimator Mobile Optimization --- */
+  
+  /* Suppress header & intro real estate on mobile to bring inputs above the fold */
+  #quote h2, 
+  #quote .section-title {
+    font-size: 1.25rem !important; /* ~20px */
+    margin-bottom: 0.5rem !important;
+  }
+  
+  #quote .estimator-intro-text,
+  #quote p.description,
+  #quote .section-subtitle {
+    display: none !important;
+  }
+
+  /* Relocate desktop secondary CTA by hiding top link and showing bottom text link */
+  .desktop-only-csv-download {
+    display: none !important;
+  }
+  
+  .mobile-only-csv-download {
+    display: block !important;
+  }
+
+  /* Make table cell inputs and padding compact on small screens */
+  .cutlist-table th, 
+  .cutlist-table td {
+    padding: 0.4rem !important;
+    font-size: 0.8rem !important;
+  }
+  
+  .cutlist-table input.form-input, 
+  .cutlist-table input.table-input-number {
+    padding: 0.25rem 0.4rem !important;
+    font-size: 0.8rem !important;
+  }
+  
+  .edgebanding-checkboxes {
+    gap: 2px !important;
+  }
+  
+  .edge-box {
+    font-size: 0.65rem !important;
+  }
+
+  /* Pin mobile primary CTA directly under metrics box using flex order, and style it high-contrast red */
+  .calculator-summary {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .summary-heading {
+    order: 1;
+  }
+  
+  .summary-details {
+    order: 2;
+    margin-bottom: var(--space-sm) !important;
+  }
+  
+  .summary-cta-container {
+    order: 3;
+    margin-top: 0 !important;
+    margin-bottom: var(--space-md) !important;
+  }
+  
+  .summary-notice {
+    order: 4;
+    margin-top: 0 !important;
+  }
+
+  .summary-cta-container .btn {
+    width: 100% !important;
+    background-color: #8B0021 !important; /* High contrast red */
+    color: var(--color-white) !important;
+  }
+  
+  .summary-cta-container .btn:hover {
+    background-color: #6B0018 !important;
   }
 }

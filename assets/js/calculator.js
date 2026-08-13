@@ -94,9 +94,9 @@
     }
     
     const firstRow = rows[0];
-    firstRow.querySelector('.piece_name').value = "Lateral Izquierdo Gabinete";
-    firstRow.querySelector('.length_mm').value = "720";
-    firstRow.querySelector('.width_mm').value = "560";
+    firstRow.querySelector('.piece_name').value = "Lateral";
+    firstRow.querySelector('.length_mm').value = "1200";
+    firstRow.querySelector('.width_mm').value = "600";
     firstRow.querySelector('.quantity').value = "2";
     firstRow.querySelector('.edge_l1').checked = true;
     firstRow.querySelector('.edge_l2').checked = false;

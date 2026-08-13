@@ -137,7 +137,7 @@
             Editor de Lista de Corte
             <span class="calculator-badge">Simulador Interactivo</span>
           </h3>
-          <div style="text-align: right; margin-top: var(--space-xs);">
+          <div class="desktop-only-csv-download" style="text-align: right; margin-top: var(--space-xs);">
             <a href="/templates/Halsen_Template_Cutlist.csv" class="btn btn-outline" download style="padding: 0.4rem 0.8rem; font-size: 0.75rem; border-color: var(--color-wood); color: var(--color-wood);">
               <svg style="width: 14px; height: 14px; vertical-align: middle; margin-right: 4px;" viewBox="0 0 24 24">
                 <path fill="currentColor" d="M5,20H19V18H5M19,9H15V3H9V9H5L12,16L19,9Z"/>
@@ -151,8 +151,63 @@
         </div>
         
         <form id="cutlist-form" onsubmit="event.preventDefault();">
+          <div class="cutlist-container">
+            <div class="table-responsive-wrapper">
+              <table class="cutlist-table">
+                <thead>
+                  <tr>
+                    <th style="width: 60px;">Item</th>
+                    <th>Nombre de Pieza</th>
+                    <th style="width: 110px;">Largo (mm)</th>
+                    <th style="width: 110px;">Ancho (mm)</th>
+                    <th style="width: 80px;">Cantidad</th>
+                    <th style="text-align: center; width: 160px;">Bordes a Enchapar</th>
+                    <th style="width: 40px;"></th>
+                  </tr>
+                </thead>
+                <tbody id="table-body">
+                  <!-- Row 1 -->
+                  <tr class="item-row">
+                    <td class="item-index">#1</td>
+                    <td><input type="text" class="form-input piece_name" value="Lateral" style="padding: 0.4rem; width: 100%;"></td>
+                    <td><input type="number" class="table-input-number length_mm" value="1200" min="10" max="2400"></td>
+                    <td><input type="number" class="table-input-number width_mm" value="600" min="10" max="1200"></td>
+                    <td><input type="number" class="table-input-number quantity" value="2" min="1"></td>
+                    <td>
+                      <div class="edgebanding-checkboxes">
+                        <label class="edge-box" title="Largo 1">
+                          <input type="checkbox" class="edge_l1" checked>
+                          <span>L1</span>
+                        </label>
+                        <label class="edge-box" title="Largo 2">
+                          <input type="checkbox" class="edge_l2">
+                          <span>L2</span>
+                        </label>
+                        <label class="edge-box" title="Ancho 1">
+                          <input type="checkbox" class="edge_a1" checked>
+                          <span>A1</span>
+                        </label>
+                        <label class="edge-box" title="Ancho 2">
+                          <input type="checkbox" class="edge_a2">
+                          <span>A2</span>
+                        </label>
+                      </div>
+                    </td>
+                    <td><button type="button" class="btn-remove-row" onclick="removeRow(this)" style="color:#d9534f; border:none; background:none; cursor:pointer; font-weight:bold; font-size:1.1rem; padding: 0 4px;">❌</button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          
+          <div style="display: flex; gap: var(--space-xs); margin-bottom: var(--space-md); flex-wrap: wrap; align-items: center;">
+            <button type="button" class="btn btn-outline" id="btn-add-row" onclick="addRow()" style="padding: 0.5rem 1rem; font-size: 0.8rem;">+ Agregar Fila</button>
+            <button type="button" class="btn btn-outline" id="btn-clear-list" onclick="clearCutlist()" style="padding: 0.5rem 1rem; font-size: 0.8rem; border-color: #d9534f; color: #d9534f;">Limpiar Lista</button>
+            <span style="font-size: 0.75rem; color: var(--color-charcoal); margin-left: 8px;"><em>💡 Tip: Presiona la tecla <strong>Tab</strong> en el último campo para agregar una fila automáticamente.</em></span>
+          </div>
+          
           <!-- Global Materials Config -->
-          <div class="form-section-title">1. Configuración del Tablero</div>
+          <div class="form-section-title" style="margin-top: var(--space-md);">Configuración del Tablero</div>
           <div class="form-row">
             <div class="form-group" style="display: flex; align-items: center; gap: var(--space-xs);">
               <input type="checkbox" id="has-grain" name="has-grain" style="width: 18px; height: 18px;">
@@ -163,65 +218,16 @@
             </div>
           </div>
           
-          <!-- Detailed Cutlist Table with L1, L2, A1, A2 edge markers -->
-          <div class="form-section-title">2. Dimensiones de Piezas y Enchapado (L1, L2, A1, A2)</div>
-          <div class="cutlist-container">
-            <table class="cutlist-table">
-              <thead>
-                <tr>
-                  <th style="width: 60px;">Item</th>
-                  <th>Nombre de Pieza</th>
-                  <th style="width: 110px;">Largo (mm)</th>
-                  <th style="width: 110px;">Ancho (mm)</th>
-                  <th style="width: 80px;">Cantidad</th>
-                  <th style="text-align: center; width: 160px;">Bordes a Enchapar</th>
-                  <th style="width: 40px;"></th>
-                </tr>
-              </thead>
-              <tbody id="table-body">
-                <!-- Row 1 -->
-                <tr class="item-row">
-                  <td class="item-index">#1</td>
-                  <td><input type="text" class="form-input piece_name" value="Lateral Izquierdo Gabinete" style="padding: 0.4rem; width: 100%;"></td>
-                  <td><input type="number" class="table-input-number length_mm" value="720" min="10" max="2400"></td>
-                  <td><input type="number" class="table-input-number width_mm" value="560" min="10" max="1200"></td>
-                  <td><input type="number" class="table-input-number quantity" value="2" min="1"></td>
-                  <td>
-                    <div class="edgebanding-checkboxes">
-                      <label class="edge-box" title="Largo 1">
-                        <input type="checkbox" class="edge_l1" checked>
-                        <span>L1</span>
-                      </label>
-                      <label class="edge-box" title="Largo 2">
-                        <input type="checkbox" class="edge_l2">
-                        <span>L2</span>
-                      </label>
-                      <label class="edge-box" title="Ancho 1">
-                        <input type="checkbox" class="edge_a1" checked>
-                        <span>A1</span>
-                      </label>
-                      <label class="edge-box" title="Ancho 2">
-                        <input type="checkbox" class="edge_a2">
-                        <span>A2</span>
-                      </label>
-                    </div>
-                  </td>
-                  <td><button type="button" class="btn-remove-row" onclick="removeRow(this)" style="color:#d9534f; border:none; background:none; cursor:pointer; font-weight:bold; font-size:1.1rem; padding: 0 4px;">❌</button></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          
-          <div style="display: flex; gap: var(--space-xs); margin-bottom: var(--space-md); flex-wrap: wrap; align-items: center;">
-            <button type="button" class="btn btn-outline" id="btn-add-row" onclick="addRow()" style="padding: 0.5rem 1rem; font-size: 0.8rem;">+ Agregar Fila</button>
-            <button type="button" class="btn btn-outline" id="btn-clear-list" onclick="clearCutlist()" style="padding: 0.5rem 1rem; font-size: 0.8rem; border-color: #d9534f; color: #d9534f;">Limpiar Lista</button>
-            <span style="font-size: 0.75rem; color: var(--color-charcoal); margin-left: 8px;"><em>💡 Tip: Presiona la tecla <strong>Tab</strong> en el último campo para agregar una fila automáticamente.</em></span>
-          </div>
-          
-          <div class="form-section-title">3. Acciones de Simulación</div>
+          <div class="form-section-title">Acciones de Simulación</div>
           <div style="display: flex; gap: var(--space-sm); flex-wrap: wrap;">
             <button type="button" class="btn btn-primary" onclick="executeWorkshopCalculations(); alert('¡Cálculo manual ejecutado con éxito! Las métricas actualizadas ya se muestran en el panel lateral.')">Calcular Estimación</button>
             <a id="csv-download-btn" class="btn btn-secondary" href="#" download style="text-decoration: none; display: inline-flex; align-items: center; justify-content: center;">Exportar CSV de Producción</a>
+          </div>
+          
+          <div class="mobile-only-csv-download" style="text-align: center; margin-top: var(--space-md); display: none;">
+            <p style="font-size: 0.85rem; color: var(--color-charcoal); margin: 0;">
+              ¿Prefieres Excel? <a href="/templates/Halsen_Template_Cutlist.csv" download style="color: var(--color-wood); text-decoration: underline; font-weight: 600;">Descarga la plantilla aquí</a>
+            </p>
           </div>
         </form>
       </div>
@@ -262,7 +268,7 @@
           </ul>
           </div>
         
-        <div style="text-align: center; margin-top: var(--space-md);">
+        <div class="summary-cta-container" style="text-align: center; margin-top: var(--space-md);">
           <button type="button" class="btn btn-primary" style="width: 100%;" onclick="sendQuoteRequest()">Solicitar Cotización Formal</button>
         </div>
       </div>
