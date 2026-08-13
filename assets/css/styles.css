@@ -948,24 +948,173 @@ a:hover {
   }
 
   /* Make table cell inputs and padding compact on small screens */
-  .cutlist-table th, 
-  .cutlist-table td {
+  .cutlist-table th {
+    display: none !important; /* Hide table headers because we turn row cells into cards */
+  }
+  
+  .cutlist-table,
+  .cutlist-table tbody,
+  .cutlist-table tr.item-row {
+    display: block !important;
+    width: 100% !important;
+  }
+
+  .cutlist-table tr.item-row {
+    border-bottom: 2px solid var(--color-border);
+    padding: var(--space-sm) 0 !important;
+    position: relative !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+  }
+
+  /* Row Number and Remove Button styled nicely at the top */
+  .cutlist-table td:nth-child(1) { /* item-index */
+    order: 1 !important;
+    display: inline-block !important;
+    width: auto !important;
+    font-weight: 700 !important;
+    color: var(--color-wood) !important;
+    font-size: 0.95rem !important;
+    padding: 0 !important;
+    border-bottom: none !important;
+  }
+
+  .cutlist-table td:nth-child(7) { /* remove button */
+    order: 2 !important;
+    display: inline-block !important;
+    width: auto !important;
+    position: absolute !important;
+    top: var(--space-sm) !important;
+    right: 0 !important;
+    padding: 0 !important;
+    border-bottom: none !important;
+  }
+
+  .cutlist-table td:nth-child(2) { /* piece_name input */
+    order: 3 !important;
+    display: block !important;
+    width: 100% !important;
+    padding: 0 !important;
+    border-bottom: none !important;
+  }
+
+  .cutlist-table td:nth-child(2) input.piece_name {
     padding: 0.4rem !important;
-    font-size: 0.8rem !important;
+    font-size: 0.85rem !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Largo, Ancho, and Cantidad styled in a 3-column inline block below Name */
+  .cutlist-table td:nth-child(3),
+  .cutlist-table td:nth-child(4),
+  .cutlist-table td:nth-child(5) {
+    display: inline-block !important;
+    width: calc(33.333% - 6px) !important;
+    padding: 0 !important;
+    margin-right: 6px !important;
+    border-bottom: none !important;
   }
   
-  .cutlist-table input.form-input, 
-  .cutlist-table input.table-input-number {
-    padding: 0.25rem 0.4rem !important;
-    font-size: 0.8rem !important;
+  .cutlist-table td:nth-child(5) {
+    margin-right: 0 !important;
+  }
+
+  /* Add mini-labels on small screens */
+  .cutlist-table td:nth-child(3)::before {
+    content: "Largo (mm)";
+    display: block;
+    font-size: 0.7rem;
+    color: var(--color-charcoal);
+    margin-bottom: 2px;
+    font-weight: 600;
   }
   
+  .cutlist-table td:nth-child(4)::before {
+    content: "Ancho (mm)";
+    display: block;
+    font-size: 0.7rem;
+    color: var(--color-charcoal);
+    margin-bottom: 2px;
+    font-weight: 600;
+  }
+
+  .cutlist-table td:nth-child(5)::before {
+    content: "Cant.";
+    display: block;
+    font-size: 0.7rem;
+    color: var(--color-charcoal);
+    margin-bottom: 2px;
+    font-weight: 600;
+  }
+
+  .cutlist-table .table-input-number {
+    width: 100% !important;
+    box-sizing: border-box !important;
+    padding: 0.3rem 0.4rem !important;
+    font-size: 0.85rem !important;
+  }
+
+  /* Edgebanding Checkboxes: stack cleanly below dimensions */
+  .cutlist-table td:nth-child(6) {
+    order: 7 !important;
+    display: block !important;
+    width: 100% !important;
+    padding: 6px 0 0 0 !important;
+    border-bottom: none !important;
+    border-top: 1px dashed var(--color-border) !important;
+    margin-top: 4px !important;
+  }
+
+  .cutlist-table td:nth-child(6)::before {
+    content: "Bordes a Enchapar:";
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-espresso);
+    margin-right: 8px;
+    vertical-align: middle;
+  }
+
   .edgebanding-checkboxes {
-    gap: 2px !important;
+    display: inline-flex !important;
+    gap: 12px !important;
+    justify-content: flex-start !important;
+    vertical-align: middle;
   }
   
   .edge-box {
-    font-size: 0.65rem !important;
+    flex-direction: row !important;
+    gap: 4px !important;
+    font-size: 0.75rem !important;
+  }
+  
+  .edge-box input {
+    margin-bottom: 0 !important;
+    width: 15px !important;
+    height: 15px !important;
+  }
+
+  /* --- Metrics Alignment Optimization --- */
+  .project-metrics-item,
+  .metric-row,
+  .summary-row,
+  .summary-total {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    width: 100% !important;
+    padding-right: 0.5rem !important; /* Keep numbers within safe screen margin */
+    box-sizing: border-box !important;
+  }
+
+  .metric-value,
+  .metric-subtotal-amount,
+  .summary-row strong,
+  #res-subtotal {
+    text-align: right !important;
+    font-weight: 700 !important;
+    white-space: nowrap !important;
   }
 
   /* Pin mobile primary CTA directly under metrics box using flex order, and style it high-contrast red */
