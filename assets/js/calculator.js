@@ -11,6 +11,13 @@
     const inputs = row.querySelectorAll('input');
     inputs.forEach(input => {
       input.addEventListener('input', executeWorkshopCalculations);
+      
+      // Auto-select text on focus for text and number inputs
+      if (input.type === 'text' || input.type === 'number') {
+        input.addEventListener('focus', function() {
+          this.select();
+        });
+      }
     });
   }
 
@@ -24,8 +31,8 @@
     tr.innerHTML = `
       <td class="item-index">#${newIdx}</td>
       <td><input type="text" class="form-input piece_name" value="Pieza Nueva" style="padding: 0.4rem; width: 100%;"></td>
-      <td><input type="number" class="table-input-number length_mm" value="500" min="10" max="2400"></td>
-      <td><input type="number" class="table-input-number width_mm" value="300" min="10" max="1200"></td>
+      <td><input type="number" class="table-input-number length_mm" value="500" min="10" max="2400" step="0.01"></td>
+      <td><input type="number" class="table-input-number width_mm" value="300" min="10" max="1200" step="0.01"></td>
       <td><input type="number" class="table-input-number quantity" value="1" min="1"></td>
       <td>
         <div class="edgebanding-checkboxes">
@@ -118,7 +125,11 @@
     const CNC_MINUTE_RATE = 10.00;
     const CAM_FEE_PER_BLOCK = 75.00;
     let hasGrain = document.getElementById('has-grain') ? document.getElementById('has-grain').checked : false;
-    let thickness = 18; // Defaulting to 18mm
+    let thickness = 15; // Default standard board thickness
+    const thicknessInput = document.getElementById('board-thickness');
+    if (thicknessInput) {
+      thickness = parseFloat(thicknessInput.value) || 15;
+    }
     
     const NESTING_GAP = hasGrain ? 12 : 8; // Adjust margin slightly bigger for grain
     const USABLE_SHEET_AREA = 1200 * 2420; 
@@ -145,8 +156,8 @@
         let widthInput = row.querySelector('.width_mm');
         let qtyInput = row.querySelector('.quantity');
         
-        let length = parseInt(lengthInput.value) || 0;
-        let width = parseInt(widthInput.value) || 0;
+        let length = parseFloat(lengthInput.value) || 0;
+        let width = parseFloat(widthInput.value) || 0;
         let qty = parseInt(qtyInput.value) || 0;
 
         // Visual validation feedback/handling
@@ -231,11 +242,19 @@
     document.getElementById('res-subtotal').innerText = `${formatter.format(subtotalEstimated)}*`;
 
     // Configure CSV Button link content
-    let csvContent = "data:text/csv;charset=utf-8,\uFEFF" + csvRows.map(e => e.join(",")).join("\n");
+    let csvContent = "\uFEFF" + csvRows.map(e => e.join(",")).join("\n");
     let downloadBtn = document.getElementById('csv-download-btn');
     if (downloadBtn) {
-      downloadBtn.setAttribute("href", encodeURI(csvContent));
-      downloadBtn.setAttribute("download", `halsen_lista_corte_${thickness}mm.csv`);
+      downloadBtn.setAttribute("href", "data:text/csv;charset=utf-8," + encodeURIComponent(csvContent));
+      
+      const now = new Date();
+      const year = now.getFullYear();
+      const month = String(now.getMonth() + 1).padStart(2, '0');
+      const day = String(now.getDate()).padStart(2, '0');
+      const hours = String(now.getHours()).padStart(2, '0');
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      const currentDateStr = `${year}-${month}-${day}:${hours}:${minutes}`;
+      downloadBtn.setAttribute("download", `${currentDateStr}_HALSEN_Cutlist.csv`);
     }
   }
 
@@ -269,6 +288,11 @@
     let hasGrainEl = document.getElementById('has-grain');
     if (hasGrainEl) {
       hasGrainEl.addEventListener('change', executeWorkshopCalculations);
+    }
+    
+    let thicknessEl = document.getElementById('board-thickness');
+    if (thicknessEl) {
+      thicknessEl.addEventListener('input', executeWorkshopCalculations);
     }
     
     // Event delegation on table body to handle TAB key down inside the last input of the last row

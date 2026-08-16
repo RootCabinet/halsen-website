@@ -170,8 +170,8 @@
                   <tr class="item-row">
                     <td class="item-index">#1</td>
                     <td><input type="text" class="form-input piece_name" value="Lateral" style="padding: 0.4rem; width: 100%;"></td>
-                    <td><input type="number" class="table-input-number length_mm" value="1200" min="10" max="2400"></td>
-                    <td><input type="number" class="table-input-number width_mm" value="600" min="10" max="1200"></td>
+                    <td><input type="number" class="table-input-number length_mm" value="1200" min="10" max="2400" step="0.01"></td>
+                    <td><input type="number" class="table-input-number width_mm" value="600" min="10" max="1200" step="0.01"></td>
                     <td><input type="number" class="table-input-number quantity" value="2" min="1"></td>
                     <td>
                       <div class="edgebanding-checkboxes">
@@ -208,13 +208,17 @@
           
           <!-- Global Materials Config -->
           <div class="form-section-title" style="margin-top: var(--space-md);">Configuración del Tablero</div>
-          <div class="form-row">
-            <div class="form-group" style="display: flex; align-items: center; gap: var(--space-xs);">
-              <input type="checkbox" id="has-grain" name="has-grain" style="width: 18px; height: 18px;">
-              <label class="form-label" for="has-grain" style="margin-bottom: 0;">Material con veta</label>
+          <div class="form-row" style="grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));">
+            <div class="form-group" style="max-width: 200px;">
+              <label class="form-label" for="board-thickness">Espesor del Tablero (mm)</label>
+              <input type="number" id="board-thickness" name="board-thickness" class="form-input" value="15" min="3" max="50" step="0.01" style="padding: 0.4rem; width: 100%;">
             </div>
-            <div class="form-group">
-              <small style="color: var(--color-charcoal); font-style: italic;">Nota: Para material con veta, el 'Largo' de la pieza indica la dirección de la veta.</small>
+            <div class="form-group" style="display: flex; flex-direction: column; justify-content: center;">
+              <div style="display: flex; align-items: center; gap: var(--space-xs); margin-bottom: 0.4rem;">
+                <input type="checkbox" id="has-grain" name="has-grain" style="width: 18px; height: 18px;">
+                <label class="form-label" for="has-grain" style="margin-bottom: 0;">Material con veta</label>
+              </div>
+              <small style="color: var(--color-charcoal); font-style: italic; line-height: 1.2;">Nota: El 'Largo' de la pieza indica la dirección de la veta.</small>
             </div>
           </div>
           
